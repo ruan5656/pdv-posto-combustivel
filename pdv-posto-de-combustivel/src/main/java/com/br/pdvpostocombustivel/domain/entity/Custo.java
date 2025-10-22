@@ -1,64 +1,94 @@
 package com.br.pdvpostocombustivel.domain.entity;
 
+import com.br.pdvpostocombustivel.enums.TipoCusto;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "custo")
 public class Custo {
 
-    //atributos
-    private double imposto;
-    private double frete;
-    private double seguro;
-    private double custoVariavel;
-    private double custoFixo;
-    private double margemLucro;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    //atributos
+
+    @Column(length = 5, nullable = false)
+    private Double imposto;
+
+    @Column(length = 10, nullable = false)
+    private Double custoVariavel;
+
+    @Column(length = 10, nullable = false)
+    private Double custoFixo;
+
+    @Column(length = 5, nullable = false)
+    private Double margemLucro;
+
+    @Column(length = 10, nullable = false)
+    private LocalDate dataProcessamento;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_custo", nullable = false, length = 30)
+    private TipoCusto tipoCusto;
     //construtor
-    public Custo(double imposto, double frete, double seguro, double custoVariavel, double custoFixo, double margemLucro){
+    public Custo() {
+    }
+
+    public Custo(Double imposto, Double custoVariavel, Double custoFixo, Double margemLucro, LocalDate dataProcessamento, TipoCusto tipoCusto) {
         this.imposto = imposto;
-        this.frete = frete;
-        this.seguro = seguro;
         this.custoVariavel = custoVariavel;
         this.custoFixo = custoFixo;
         this.margemLucro = margemLucro;
+        this.dataProcessamento = dataProcessamento;
+        this.tipoCusto = tipoCusto;
     }
 
     //getters
-    public double getImposto(){
-        return imposto;
+    public Long getId() {
+        return id;
     }
-    public double getFrete(){
-        return frete;
-    }
-    public double getSeguro(){
-        return seguro;
-    }
-    public double getCustoVariavel(){
-        return custoVariavel;
-    }
-    public double getCustoFixo(){
+
+    public Double getCustoFixo() {
         return custoFixo;
     }
-    public double getMargemLucro(){
+    public LocalDate getDataProcessamento() {
+        return dataProcessamento;
+    }
+    public Double getCustoVariavel() {
+        return custoVariavel;
+    }
+    public Double getImposto() {
+        return imposto;
+    }
+    public Double getMargemLucro() {
         return margemLucro;
+    }
+    public TipoCusto getTipoCusto() {
+        return tipoCusto;
     }
 
     //setters
-    public void setImposto (Double imposto){
-        this.imposto = imposto;
-    }
-
-    public void setFrete(double frete) {
-        this.frete = frete;
-    }
-    public void setSeguro(double seguro) {
-        this.seguro = seguro;
-    }
-    public void setCustoVariavel(double custoVariavel) {
-        this.custoVariavel = custoVariavel;
-    }
-    public void setCustoFixo(double custoFixo) {
+    public void setCustoFixo(Double custoFixo) {
         this.custoFixo = custoFixo;
     }
-    public void setMargemLucro(double margemLucro) {
+    public void setCustoVariavel(Double custoVariavel) {
+        this.custoVariavel = custoVariavel;
+    }
+    public void setDataProcessamento(LocalDate dataProcessamento) {
+        this.dataProcessamento = dataProcessamento;
+    }
+    public void setImposto(Double imposto) {
+        this.imposto = imposto;
+    }
+    public void setMargemLucro(Double margemLucro) {
         this.margemLucro = margemLucro;
+    }
+    public void setTipoCusto(TipoCusto tipoCusto) {
+        this.tipoCusto = tipoCusto;
     }
 }
